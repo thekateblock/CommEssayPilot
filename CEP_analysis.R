@@ -3,7 +3,8 @@
 #' use dataset.attn2 for those who have done essay and passed attention check
 
 #correlations between main outcomes
-rcorr(cbind(dataset.attn$comm_imp, dataset.attn$comm_sat, dataset.attn$comm_Ben, dataset.attn$agen_imp, dataset.attn$agen_sat, dataset.attn$agen_Ben))
+library(Hmisc)
+rcorr(cbind(dataset.attn$comm_imp, dataset.attn$comm_Sat, dataset.attn$comm_Ben, dataset.attn$agen_imp, dataset.attn$agen_Sat, dataset.attn$agen_Ben))
 
 #' ANOVA's for Mean differences in communal importance
 comm_impAN <- aov(comm_imp ~ Condition_TXT, data=dataset.attn)

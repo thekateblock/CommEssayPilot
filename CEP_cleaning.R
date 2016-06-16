@@ -42,6 +42,7 @@ dataset$comm_Ben <- ((dataset$Ben_comm1 + dataset$Ben_comm2 + dataset$Ben_comm3 
 dataset$agen_Ben <- ((dataset$Ben_agen1 + dataset$Ben_agen2 + dataset$Ben_agen3 + dataset$Ben_agen4 + dataset$Ben_agen5 + dataset$Ben_agen6 + dataset$Ben_agen7)/7)
 
 # chronbachs alpha's
+# ???
 
 ## excluding thos who did not write essay and who did not stay on TOPIC
 dataset.attn <- filter(dataset, Essay_Length!= "blank" & Essay_Content == 'IN LINE')
