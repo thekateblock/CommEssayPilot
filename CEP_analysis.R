@@ -83,6 +83,10 @@ TukeyHSD(surprisedAN)
 plotmeans(dataset.attn$Surprised~Condition_TXT,xlab="Condition",
           ylab= "Surprise", main="Surprised by article \n BY condition")
 
+
+dataset.attn %>% group_by(Condition_TXT) %>%
+  summarise_each(funs(mean(., na.rm = TRUE), sd(., na.rm=TRUE)), comm_imp,comm_Sat, comm_Ben)
+
 ######## Do same test with the larger sample that also included those who wrote counter the condition
 ###########################################
 
