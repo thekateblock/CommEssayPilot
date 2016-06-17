@@ -16,6 +16,9 @@ Condition_TXT <- factor(dataset.attn$Condition_TXT)
 plotmeans(dataset.attn$comm_imp~Condition_TXT,xlab="Condition",
           ylab= "Importance of Communal Goals", main="Importance of communal Values\n BY condition")
 
+dataset.attn %>% group_by(Condition_TXT) %>%
+  summarise(avg_comm_imp = (mean(comm_imp, na.rm = TRUE)), SD_comm_imp = (sd(comm_imp, na.rm = TRUE)))
+
 # ANOVA's for Mean differences in agentic importance
 agen_impAN <- aov(agen_imp ~ Condition_TXT, data=dataset.attn)
 summary (agen_impAN)
