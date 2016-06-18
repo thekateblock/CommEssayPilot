@@ -1,3 +1,12 @@
+
+# load in the stuff you will need for this
+
+library(plyr)
+library(dplyr)
+library (psych)
+library (ggplot2)
+library (xlsx)
+
 # reading in the data here
 
 dataset <- read.xlsx("Relating_to_Research_DATA_CLEAN.xlsx", sheetIndex = 1)
@@ -41,8 +50,8 @@ dataset$agen_Sat <- ((dataset$Sat_agen1 + dataset$Sat_agen2 + dataset$Sat_agen3 
 dataset$comm_Ben <- ((dataset$Ben_comm1 + dataset$Ben_comm2 + dataset$Ben_comm3 + dataset$Ben_comm4 + dataset$Ben_comm5 + dataset$Ben_comm6 + dataset$Ben_comm7)/7)
 dataset$agen_Ben <- ((dataset$Ben_agen1 + dataset$Ben_agen2 + dataset$Ben_agen3 + dataset$Ben_agen4 + dataset$Ben_agen5 + dataset$Ben_agen6 + dataset$Ben_agen7)/7)
 
-# chronbachs alpha's
-# ???
+##### chronbachs alpha's
+# Need to make subeset dataframe for each one colletion of variables
 
 ## excluding thos who did not write essay and who did not stay on TOPIC
 dataset.attn <- filter(dataset, Essay_Length!= "blank" & Essay_Content == 'IN LINE')
