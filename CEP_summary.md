@@ -145,6 +145,10 @@ There is a significan effect of condition on all of those. For all, specifically
 | communal=bad   |       6.23|       6.46|       6.45|
 | agentic=good   |       6.50|       6.79|       7.05|
 
+### Plots for these
+
+![](CEP_summary_files/figure-markdown_github/unnamed-chunk-8-1.png)![](CEP_summary_files/figure-markdown_github/unnamed-chunk-8-2.png)![](CEP_summary_files/figure-markdown_github/unnamed-chunk-8-3.png)
+
 ### ANOVA for condition differences in Importance of communal values
 
     ##                Df Sum Sq Mean Sq F value Pr(>F)  
@@ -278,7 +282,7 @@ We had people rate 7 communal and 7 agentic values on three dimensions
 
 ### PART B. Means of communal value ratings by condition
 
-Note that condition only has a significant effect on importance and marginal effect on beneficial. No effect on how satisfying values feel.
+Note that condition only has a significant effect on importance and on beneficial. No effect on how satisfying communal values feel.
 
 | Condition\_TXT |  comm\_imp|  comm\_Sat|  comm\_Ben|
 |:---------------|----------:|----------:|----------:|
@@ -347,7 +351,7 @@ Note that condition only has a significant effect on importance and marginal eff
 PART B. Ratings of agentic values by condition
 ----------------------------------------------
 
-Here are the means by condition. There is no significant condition differences here.
+Here are the means by condition. There is no significant condition differences for these alternative exclusion criteria either.
 
 | Condition\_TXT |  agen\_imp|  agen\_Sat|  agen\_Ben|
 |:---------------|----------:|----------:|----------:|

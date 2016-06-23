@@ -121,6 +121,7 @@ People rated what they did by
 
 ## Means of ratings of task by condition
 ```{r, echo=FALSE,warning=FALSE, message=FALSE}
+
 meansTASK1 <- dataset.attn %>%
   group_by(Condition_TXT) %>% 
  summarise_each (funs (round(mean(., na.rm=TRUE), 2)), Difficulty_Write)
@@ -137,10 +138,31 @@ meansTASK2 %>% arrange(desc(Condition_TXT)) %>% knitr::kable(format = "markdown"
 ### Condition differences in surprise
 Ratings of the task only differed by condition on how surprising they found the articles topic. Here People found the communal=bad topic to be most surprising.
 ```{r, echo=FALSE,warning=FALSE, message=FALSE}
-
 comm_surAN <- aov(Surprised ~ Condition_TXT, data=dataset.attn)
 summary (comm_surAN)
 TukeyHSD(comm_surAN)
+```
+
+```{r, echo=FALSE, eval=FALSE}
+surpriseAN <- aov(Surprised ~ Condition_TXT, data=dataset.attn)
+summary (surpriseAN)
+TukeyHSD(surpriseAN)
+
+diffAN <- aov(Difficulty_Write ~ Condition_TXT, data=dataset.attn)
+summary (diffAN)
+TukeyHSD(diffAN)
+
+wellAN <- aov(Well_Written ~ Condition_TXT, data=dataset.attn)
+summary (wellAN)
+TukeyHSD(wellAN)
+
+engAN <- aov(Engaging ~ Condition_TXT, data=dataset.attn)
+summary (engAN)
+TukeyHSD(engAN)
+
+understAN <- aov(Understand ~ Condition_TXT, data=dataset.attn)
+summary (understAN)
+TukeyHSD(understAN)
 ```
 
 ## DV ratings
@@ -159,10 +181,20 @@ meansDVs <- dataset.attn %>%
 
 meansDVs %>% arrange(desc(Condition_TXT)) %>% knitr::kable(format = "markdown")
 ```
-### Plots for these
 
+
+### Plots for these
 ```{r, echo=FALSE}
-??
+Condition_TXT <- factor(dataset.attn$Condition_TXT)
+plotmeans(dataset.attn$comm_imp ~ Condition_TXT, xlab="Condition",
+          ylab= "Importance of Communal Goals", main="Importance of communal Goals\n BY condition", n.label = TRUE)
+
+plotmeans(dataset.attn$comm_Sat~Condition_TXT,xlab="Condition",
+          ylab= "Satisfaction of Communal Goals", main="Satisfaction of communal Goals\n BY condition", n.label = TRUE)
+
+plotmeans(dataset.attn$comm_Ben~Condition_TXT,xlab="Condition",
+          ylab= "Benefot of Communal Goals", main="Benefit of communal Goals\n BY condition", n.label = TRUE)
+
 ```
 
 
@@ -197,6 +229,20 @@ meansAGEN <- dataset.attn %>%
  summarise_each (funs (round(mean(., na.rm=TRUE), 2)), agen_imp, agen_Sat, agen_Ben)
 
 meansAGEN %>% arrange(desc(Condition_TXT)) %>% knitr::kable(format = "markdown")
+```
+
+```{r, echo=FALSE, eval=FALSE }
+agen_impAN <- aov(agen_imp ~ Condition_TXT, data=dataset.attn)
+summary (agen_impAN)
+TukeyHSD(agen_impAN)
+
+agen_SatAN <- aov(agen_Sat ~ Condition_TXT, data=dataset.attn)
+summary (agen_SatAN)
+TukeyHSD(agen_SatAN)
+
+agen_impAN <- aov(agen_imp ~ Condition_TXT, data=dataset.attn)
+summary (agen_impAN)
+TukeyHSD(agen_impAN)
 ```
 
 #
@@ -235,6 +281,24 @@ Ratings of the task only differed by condition on how surprising they found the 
 Bcomm_surAN <- aov(Surprised ~ Condition_TXT, data=dataset.attn4)
 summary (Bcomm_surAN)
 TukeyHSD(Bcomm_surAN)
+```
+
+```{r, echo=FALSE, eval=FALSE}
+BdiffAN <- aov(Difficulty_Write ~ Condition_TXT, data=dataset.attn4)
+summary (BdiffAN)
+TukeyHSD(BdiffAN)
+
+BwellAN <- aov(Well_Written ~ Condition_TXT, data=dataset.attn4)
+summary (BwellAN)
+TukeyHSD(BwellAN)
+
+BengAN <- aov(Engaging ~ Condition_TXT, data=dataset.attn4)
+summary (BengAN)
+TukeyHSD(BengAN)
+
+BunderstAN <- aov(Understand ~ Condition_TXT, data=dataset.attn4)
+summary (BunderstAN)
+TukeyHSD(BunderstAN)
 ```
 
 ## PART B. DV ratings
@@ -278,7 +342,7 @@ TukeyHSD(Bcomm_BenAN)
 ```
 
 ## PART B. Ratings of agentic values by condition
-Here are the means by condition. There is no significant condition differences here.
+Here are the means by condition. There is no significant condition differences for these alternative exclusion criteria either.
 ```{r, echo = FALSE}
 BmeansAGEN <- dataset.attn4 %>%
   group_by(Condition_TXT) %>% 
@@ -286,3 +350,18 @@ BmeansAGEN <- dataset.attn4 %>%
 
 BmeansAGEN %>% arrange(desc(Condition_TXT)) %>% knitr::kable(format = "markdown")
 ```
+
+```{r, echo=FALSE, eval=FALSE}
+Bagen_impAN <- aov(agen_imp ~ Condition_TXT, data=dataset.attn4)
+summary (Bagen_impAN)
+TukeyHSD(Bagen_impAN)
+
+Bagen_SatAN <- aov(agen_Sat ~ Condition_TXT, data=dataset.attn4)
+summary (Bagen_SatAN)
+TukeyHSD(Bagen_SatAN)
+
+Bagen_impAN <- aov(agen_imp ~ Condition_TXT, data=dataset.attn4)
+summary (Bagen_impAN)
+TukeyHSD(Bagen_impAN)
+```
+

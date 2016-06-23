@@ -13,6 +13,7 @@ dataset <- read.xlsx("Relating_to_Research_DATA_CLEAN.xlsx", sheetIndex = 1)
 
 #Let's you check that the variables are really the type you want them to be.
 str(dataset)
+str(dataset.attn)
 
 count (dataset,Essay_Length)
 count(dataset, Essay_Content)
