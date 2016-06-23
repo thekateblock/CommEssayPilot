@@ -2,8 +2,11 @@
 #'use dataset.attn for those who have have done the essay and stayen on topic
 #' use dataset.attn2 for those who have done essay and passed attention check
 
+summary (dataset.attn)
+
 #correlations between main outcomes
 library(Hmisc)
+
 rcorr(cbind(dataset.attn$comm_imp, dataset.attn$comm_Sat, dataset.attn$comm_Ben, dataset.attn$agen_imp, dataset.attn$agen_Sat, dataset.attn$agen_Ben))
 
 #' ANOVA's for Mean differences in communal importance
@@ -85,7 +88,7 @@ plotmeans(dataset.attn$Surprised~Condition_TXT,xlab="Condition",
 
 
 dataset.attn %>% group_by(Condition_TXT) %>%
-  summarise_each(funs(mean(., na.rm = TRUE), sd(., na.rm=TRUE)), comm_imp,comm_Sat, comm_Ben)
+  summarise_each(funs(mean(., na.rm = TRUE), sd(., na.rm=TRUE), n()), comm_imp,comm_Sat, comm_Ben)
 
 ######## Do same test with the larger sample that also included those who wrote counter the condition
 ###########################################

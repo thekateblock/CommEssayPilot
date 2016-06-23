@@ -20,6 +20,16 @@ count (dataset, English)
 count (dataset, Whatabout_Coded)
 hist(dataset$English, main="Historgram of Importance of communal goals", xlab="Importance 1-9")
 
+
+#give labels to gender data
+dataset$GenderF <- factor(dataset$Gender,
+                          levels = c(0,1),
+                          labels = c("Male", "Female"))
+
+attach(dataset)
+mytable3 <- table(dataset$Condition_TXT,Essay_Length) 
+mytable3
+
 attach(dataset)
 mytable <- table(dataset$Condition_TXT,Essay_Content) 
 mytable
@@ -28,10 +38,6 @@ attach(dataset)
 mytable2 <- table(dataset$Condition_TXT,Whatabout_Coded) 
 mytable2
 
-#give labels to gender data
-dataset$GenderF <- factor(dataset$Gender,
-                    levels = c(0,1),
-                    labels = c("Male", "Female"))
 
 ## Making composite variables
 # composite for the personal importance of achieaving goals

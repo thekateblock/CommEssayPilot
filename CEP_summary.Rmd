@@ -1,0 +1,288 @@
+---
+title: "Communal Article + Essay Pilot (CEP)"
+author: "Kate Block (with Ryan Villamin)"
+date: "June 20, 2016"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## The STUDY
+
+This is a summary of of the analyses of the communal article + Essay pilot we ran in April, 2016 to test manipulations of communal goals/values. Each participants read an "psychology today" article and then wrote a short paragraph about how this might apply to their life. In this pilot we ran a sample of 157 men in one of three conditions:
+
+* communal = good: Article emphasizing that being communal is good for people.
+
+* communal = bad: Article emphasizing that being too communal can be harmful to people.
+
+* agentic = good: Article emphasizing that being agentic can be good for people.
+
+```{r, include=FALSE}
+##This just reads in and cleans the data but is not displayed in as output
+## remeber you can add a codechunk with command+option+i
+
+library(plyr)
+library(dplyr)
+library (psych)
+library(gplots)
+library (ggplot2)
+library (xlsx)
+library (knitr)
+library(Hmisc)
+
+dataset <- read.xlsx("Relating_to_Research_DATA_CLEAN.xlsx", sheetIndex = 1)
+
+## Making composite variables
+# composite for the personal importance of achieaving goals
+dataset$comm_imp <- ((dataset$Imp_comm1 + dataset$Imp_comm2 + dataset$Imp_comm3 + dataset$Imp_comm4 + dataset$Imp_comm5 + dataset$Imp_comm6 + dataset$Imp_comm7)/7)
+dataset$agen_imp <- ((dataset$Imp_agen1 + dataset$Imp_agen2 + dataset$Imp_agen3 + dataset$Imp_agen4 + dataset$Imp_agen5 + dataset$Imp_agen6 + dataset$Imp_agen7)/7)
+
+# composite for the personal satisfaction of achieaving goals
+dataset$comm_Sat <- ((dataset$Sat_comm1 + dataset$Sat_comm2 + dataset$Sat_comm3 + dataset$Sat_comm4 + dataset$Sat_comm5 + dataset$Sat_comm6 + dataset$Sat_comm7)/7)
+dataset$agen_Sat <- ((dataset$Sat_agen1 + dataset$Sat_agen2 + dataset$Sat_agen3 + dataset$Sat_agen4 + dataset$Sat_agen5 + dataset$Sat_agen6 + dataset$Sat_agen7)/7)
+
+# composite for how beneficial in the longterm achieving goals will be
+
+dataset$comm_Ben <- ((dataset$Ben_comm1 + dataset$Ben_comm2 + dataset$Ben_comm3 + dataset$Ben_comm4 + dataset$Ben_comm5 + dataset$Ben_comm6 + dataset$Ben_comm7)/7)
+dataset$agen_Ben <- ((dataset$Ben_agen1 + dataset$Ben_agen2 + dataset$Ben_agen3 + dataset$Ben_agen4 + dataset$Ben_agen5 + dataset$Ben_agen6 + dataset$Ben_agen7)/7)
+
+#recode gender into factor
+dataset$GenderF <- factor(dataset$Gender,
+                    levels = c(0,1),
+                    labels = c("Male", "Female"))
+
+### Here I am making exclusions
+dataset.attn <- filter(dataset, Essay_Length!= "blank" & Essay_Content == 'IN LINE')
+dataset.attn2 <- filter(dataset, Essay_Length!= "blank" & Atn_Check1 == "PT (correct)")
+dataset.attn3 <- filter(dataset, Essay_Length!= "blank")
+dataset.attn4 <- filter (dataset, Essay_Length!= "blank" & English < 13)
+dataset.attn5 <- filter (dataset, Essay_Length!= "blank" & Whatabout_Coded != "Guessed")
+```
+
+# Which participants can we trust?
+
+## Who did the essay right?
+We coded essay in a number of ways to see who did and did not do our tasks right
+
+* Essay Length: How long was their essay
+* Essay content: Were they on topic, counter topic, or totally off topic
+* Whatabout_Coded: How close were they to guessing the hypothesis
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+## need the counts here for the essay codes by condition
+
+attach(dataset)
+mytable3 <- table(dataset$Condition_TXT,Essay_Length) 
+mytable3
+
+attach(dataset)
+mytable <- table(dataset$Condition_TXT,Essay_Content) 
+mytable
+
+attach(dataset)
+mytable2 <- table(dataset$Condition_TXT,Whatabout_Coded) 
+mytable2
+```
+
+## Who passed manipulations checks? 
+
+* Attn_check1: what was the source of the article
+* Attn_check2: what was the topic of the article
+
+```{r, echo=FALSE,warning=FALSE, message=FALSE}
+### need here their manipcheck results
+
+attach(dataset)
+mytable4 <- table(dataset$Condition_TXT, Atn_Check1) 
+mytable4
+
+attach(dataset)
+mytable5 <- table(dataset$Condition_TXT,Atn_Check2) 
+mytable5
+```
+
+## So, exclusions?
+
+Based on these I for now decided to ONLY exclude those people who did NOT write the essay at all (n=6) and those who didn't manage to write about in line with the topic (n=34). This leaves us with a total sample of n = 117. It really sucks that so many people didn't follow instructions. This could be a factor of doing studies on campus in passing but could also skew results. So, you will see that later I also display results leaving these people in!
+
+#Analyses with people who did they essay in LINE with their topic.
+
+### Essay Ratings
+People rated what they did by
+
+* Difficulty_Write: How difficult it was to write the essay
+
+* Well_Written: How well written they found the article
+* Engaging: How engaging they found the article
+* Understand: whether they felt they could understand the article
+* Surprised: How surprised they were about the results.
+
+## Means of ratings of task by condition
+```{r, echo=FALSE,warning=FALSE, message=FALSE}
+meansTASK1 <- dataset.attn %>%
+  group_by(Condition_TXT) %>% 
+ summarise_each (funs (round(mean(., na.rm=TRUE), 2)), Difficulty_Write)
+
+meansTASK1 %>% arrange(desc(Condition_TXT)) %>% knitr::kable(format = "markdown")
+
+meansTASK2 <- dataset.attn %>%
+  group_by(Condition_TXT) %>% 
+ summarise_each (funs (round(mean(., na.rm=TRUE), 2)), Well_Written, Engaging, Understand, Surprised)
+
+meansTASK2 %>% arrange(desc(Condition_TXT)) %>% knitr::kable(format = "markdown")
+```
+
+### Condition differences in surprise
+Ratings of the task only differed by condition on how surprising they found the articles topic. Here People found the communal=bad topic to be most surprising.
+```{r, echo=FALSE,warning=FALSE, message=FALSE}
+
+comm_surAN <- aov(Surprised ~ Condition_TXT, data=dataset.attn)
+summary (comm_surAN)
+TukeyHSD(comm_surAN)
+```
+
+## DV ratings
+We had people rate 7 communal and 7 agentic values on three dimensions
+
+* How important do each of the following goals seem to you personally? (_imp)
+* How satisfying would it be for you to fulfill each of the following goals? (_Sat)
+* In the long run, how beneficial would fulfilling each of the following goals be for you personally? (_Ben)
+
+###Means of communal value ratings by condition
+There is a significan effect of condition on all of those. For all, specifically the communal=good condition is different from the communal = bad condition
+```{r, echo=FALSE,warning=FALSE, message=FALSE}
+meansDVs <- dataset.attn %>%
+  group_by(Condition_TXT) %>% 
+ summarise_each (funs (round(mean(., na.rm=TRUE), 2)), comm_imp, comm_Sat, comm_Ben)
+
+meansDVs %>% arrange(desc(Condition_TXT)) %>% knitr::kable(format = "markdown")
+```
+### Plots for these
+
+```{r, echo=FALSE}
+??
+```
+
+
+###ANOVA for condition differences in Importance of communal values
+```{r, echo=FALSE,warning=FALSE, message=FALSE}
+comm_impAN <- aov(comm_imp ~ Condition_TXT, data=dataset.attn)
+summary (comm_impAN)
+TukeyHSD(comm_impAN)
+```
+
+
+###ANOVA for condition differences in Satisfaction of communal values
+```{r, echo=FALSE,warning=FALSE, message=FALSE}
+comm_SatAN <- aov(comm_Sat ~ Condition_TXT, data=dataset.attn)
+summary (comm_SatAN)
+TukeyHSD(comm_SatAN)
+```
+
+
+###ANOVA for condition differences in how beneficial communal values are
+```{r, echo=FALSE,warning=FALSE, message=FALSE}
+comm_BenAN <- aov(comm_Ben ~ Condition_TXT, data=dataset.attn)
+summary (comm_BenAN)
+TukeyHSD(comm_BenAN)
+```
+
+## Ratings of agentic values by condition
+Here are the means by condition. There is no significant condition differences here.
+```{r, echo = FALSE}
+meansAGEN <- dataset.attn %>%
+  group_by(Condition_TXT) %>% 
+ summarise_each (funs (round(mean(., na.rm=TRUE), 2)), agen_imp, agen_Sat, agen_Ben)
+
+meansAGEN %>% arrange(desc(Condition_TXT)) %>% knitr::kable(format = "markdown")
+```
+
+#
+#
+# PART B. Analyses with less stringent exclusion criteria
+So, Ryan and I have been thinking about it and we cannot tell if we should actually remove those people who write against their condition. There is quite a large number of people who wrote that they disagree or just wrote random stuff so it's possible by excluding those we articificially create condition differences. Another reasonable thing to do is just exclude those who didn't do the essay at all (n=6) and those who learned english very late in life (n = 9). This is our best way of excluding those who didn't do it at all or who we have reason to believe might not have understood the article. N HERE IS 142.
+
+### PART B. Essay Ratings
+People rated what they did by
+
+* Difficulty_Write: How difficult it was to write the essay
+* Well_Written: How well written they found the article
+* Engaging: How engaging they found the article
+* Understand: whether they felt they could understand the article
+* Surprised: How surprised they were about the results.
+
+## PART B. Means of ratings of task by condition
+```{r, echo=FALSE,warning=FALSE, message=FALSE}
+BmeansTASK1 <- dataset.attn4 %>%
+  group_by(Condition_TXT) %>% 
+ summarise_each (funs (round(mean(., na.rm=TRUE), 2)), Difficulty_Write)
+
+BmeansTASK1 %>% arrange(desc(Condition_TXT)) %>% knitr::kable(format = "markdown")
+
+BmeansTASK2 <- dataset.attn4 %>%
+  group_by(Condition_TXT) %>% 
+ summarise_each (funs (round(mean(., na.rm=TRUE), 2)), Well_Written, Engaging, Understand, Surprised)
+
+BmeansTASK2 %>% arrange(desc(Condition_TXT)) %>% knitr::kable(format = "markdown")
+```
+
+### PART B. Condition differences in surprise
+Ratings of the task only differed by condition on how surprising they found the articles topic. Here People found the communal=bad topic to be most surprising.
+
+```{r, echo=FALSE,warning=FALSE, message=FALSE}
+Bcomm_surAN <- aov(Surprised ~ Condition_TXT, data=dataset.attn4)
+summary (Bcomm_surAN)
+TukeyHSD(Bcomm_surAN)
+```
+
+## PART B. DV ratings
+We had people rate 7 communal and 7 agentic values on three dimensions
+
+* How important do each of the following goals seem to you personally? (_imp)
+* How satisfying would it be for you to fulfill each of the following goals? (_Sat)
+* In the long run, how beneficial would fulfilling each of the following goals be for you personally? (_Ben)
+
+### PART B. Means of communal value ratings by condition
+Note that condition only has a significant effect on importance and on beneficial. No effect on how satisfying communal values feel.
+```{r, echo=FALSE,warning=FALSE, message=FALSE}
+BmeansDVs <- dataset.attn4 %>%
+  group_by(Condition_TXT) %>% 
+ summarise_each (funs (round(mean(., na.rm=TRUE), 2)), comm_imp, comm_Sat, comm_Ben)
+
+BmeansDVs %>% arrange(desc(Condition_TXT)) %>% knitr::kable(format = "markdown")
+```
+
+### PART B. ANOVA for condition differences in Importance of communal values
+```{r, echo=FALSE,warning=FALSE, message=FALSE}
+Bcomm_impAN <- aov(comm_imp ~ Condition_TXT, data=dataset.attn4)
+summary (Bcomm_impAN)
+TukeyHSD(Bcomm_impAN)
+```
+
+
+### PART B. ANOVA for condition differences in Satisfaction of communal values
+```{r, echo=FALSE,warning=FALSE, message=FALSE}
+Bcomm_SatAN <- aov(comm_Sat ~ Condition_TXT, data=dataset.attn4)
+summary (Bcomm_SatAN)
+TukeyHSD(Bcomm_SatAN)
+```
+
+
+### PART B. ANOVA for condition differences in how beneficial communal values are
+```{r, echo=FALSE,warning=FALSE, message=FALSE}
+Bcomm_BenAN <- aov(comm_Ben ~ Condition_TXT, data=dataset.attn4)
+summary (Bcomm_BenAN)
+TukeyHSD(Bcomm_BenAN)
+```
+
+## PART B. Ratings of agentic values by condition
+Here are the means by condition. There is no significant condition differences here.
+```{r, echo = FALSE}
+BmeansAGEN <- dataset.attn4 %>%
+  group_by(Condition_TXT) %>% 
+ summarise_each (funs (round(mean(., na.rm=TRUE), 2)), agen_imp, agen_Sat, agen_Ben)
+
+BmeansAGEN %>% arrange(desc(Condition_TXT)) %>% knitr::kable(format = "markdown")
+```
