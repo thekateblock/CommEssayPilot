@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## The STUDY
 
-This is a summary of of the analyses of the communal article + Essay pilot we ran in April, 2016 to test manipulations of communal goals/values. Each participants read an "psychology today" article and then wrote a short paragraph about how this might apply to their life. In this pilot we ran a sample of 157 men in one of three conditions:
+This is a summary of of the analyses of the communal article + Essay pilot we ran in April, 2016 to test manipulations of communal goals/values. Each participants read an "psychology today" article and then wrote a short paragraph about how this might apply to their life. In this pilot we ran a sample of 157 MEN in one of three conditions:
 
 * communal = good: Article emphasizing that being communal is good for people.
 
@@ -19,8 +19,14 @@ This is a summary of of the analyses of the communal article + Essay pilot we ra
 
 * agentic = good: Article emphasizing that being agentic can be good for people.
 
+<span style="color:blue">ESSAY PROMPT:</span> 
+
+"Now, we would like you to recount the research article you just read in a way that relates to you personally.
+Please take the next ~5 minutes to write a paragraph about how the findings you just read about relate to your own life. Specifically, try to write about how you could see these findings come true in your life."
+
+
 ```{r, include=FALSE}
-##This just reads in and cleans the data but is not displayed in as output
+## This just reads in and cleans the data but is not displayed in as output
 ## remeber you can add a codechunk with command+option+i
 
 library(plyr)
@@ -31,6 +37,7 @@ library (ggplot2)
 library (xlsx)
 library (knitr)
 library(Hmisc)
+library (broom)
 
 dataset <- read.xlsx("Relating_to_Research_DATA_CLEAN.xlsx", sheetIndex = 1)
 
@@ -60,6 +67,25 @@ dataset.attn3 <- filter(dataset, Essay_Length!= "blank")
 dataset.attn4 <- filter (dataset, Essay_Length!= "blank" & English < 13)
 dataset.attn5 <- filter (dataset, Essay_Length!= "blank" & Whatabout_Coded != "Guessed")
 ```
+
+# <span style="color:red">Participant Characteristics</span> 
+
+* all participants are men
+* all were recruited in public areas at UBC 
+* the study was completed on paper
+* mean age 21.38
+
+```{r, echo=FALSE, eval=FALSE}
+str(dataset)
+mean(dataset$Age)
+```
+
+Ethnicity
+```{r, echo=FALSE}
+cbind (table (dataset$Ethnicity))
+
+```
+
 
 # Which participants can we trust?
 
@@ -113,7 +139,6 @@ Based on these I for now decided to ONLY exclude those people who did NOT write 
 People rated what they did by
 
 * Difficulty_Write: How difficult it was to write the essay
-
 * Well_Written: How well written they found the article
 * Engaging: How engaging they found the article
 * Understand: whether they felt they could understand the article
@@ -365,3 +390,18 @@ summary (Bagen_impAN)
 TukeyHSD(Bagen_impAN)
 ```
 
+# D-scores on <span style="color:blue"> COMMUNAL IMPORTANCE FOR MEN </span>  between two focal conditions in past studies:
+
+* Diekman essay manipulation (paper), SIG: 
+d (important) = .17, d (satisfying) = .47 , d (full communal goals) = .27
+* Diekman essay manipulation (lab replication):
+d (important) = .09, d (satisfying) = .03 
+* Simple postion of rating manipulation, SIG effect for men (communal first vs. agentic first): 
+d = .37
+* Name of the Game manipulation: 
+d = .04
+* Implicit Stereotype retraining, SIG: d = .54
+* Implicit stereotype retraining follow-up (just started analyzing this and haven't excluded those who had tasks issues according to the log): d = .04
+* CURRENT STUDY : d (important) = .53, d (satisfying) = .41, d (beneficial) = .53
+
+(NOTE: excluding only those who didn't write and who learned english very late)

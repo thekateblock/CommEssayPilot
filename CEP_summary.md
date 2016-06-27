@@ -6,13 +6,36 @@ June 20, 2016
 The STUDY
 ---------
 
-This is a summary of of the analyses of the communal article + Essay pilot we ran in April, 2016 to test manipulations of communal goals/values. Each participants read an "psychology today" article and then wrote a short paragraph about how this might apply to their life. In this pilot we ran a sample of 157 men in one of three conditions:
+This is a summary of of the analyses of the communal article + Essay pilot we ran in April, 2016 to test manipulations of communal goals/values. Each participants read an "psychology today" article and then wrote a short paragraph about how this might apply to their life. In this pilot we ran a sample of 157 MEN in one of three conditions:
 
 -   communal = good: Article emphasizing that being communal is good for people.
 
 -   communal = bad: Article emphasizing that being too communal can be harmful to people.
 
 -   agentic = good: Article emphasizing that being agentic can be good for people.
+
+<span style="color:blue">ESSAY PROMPT:</span>
+
+"Now, we would like you to recount the research article you just read in a way that relates to you personally. Please take the next ~5 minutes to write a paragraph about how the findings you just read about relate to your own life. Specifically, try to write about how you could see these findings come true in your life."
+
+<span style="color:red">Participant Characteristics</span>
+==========================================================
+
+-   all participants are men
+-   all were recruited in public areas at UBC
+-   the study was completed on paper
+-   mean age 21.38
+
+Ethnicity
+
+    ##                                 [,1]
+    ##  east asian or pacific islande    64
+    ## black/african american/canadian    2
+    ## hispanic/latino                    3
+    ## middle eastern                     7
+    ## mixed                              4
+    ## south asian (e.g. India)          23
+    ## White                             47
 
 Which participants can we trust?
 ================================
@@ -84,7 +107,6 @@ Analyses with people who did they essay in LINE with their topic.
 People rated what they did by
 
 -   Difficulty\_Write: How difficult it was to write the essay
-
 -   Well\_Written: How well written they found the article
 -   Engaging: How engaging they found the article
 -   Understand: whether they felt they could understand the article
@@ -147,7 +169,7 @@ There is a significan effect of condition on all of those. For all, specifically
 
 ### Plots for these
 
-![](CEP_summary_files/figure-markdown_github/unnamed-chunk-8-1.png)![](CEP_summary_files/figure-markdown_github/unnamed-chunk-8-2.png)![](CEP_summary_files/figure-markdown_github/unnamed-chunk-8-3.png)
+![](CEP_summary_files/figure-markdown_github/unnamed-chunk-10-1.png)![](CEP_summary_files/figure-markdown_github/unnamed-chunk-10-2.png)![](CEP_summary_files/figure-markdown_github/unnamed-chunk-10-3.png)
 
 ### ANOVA for condition differences in Importance of communal values
 
@@ -358,3 +380,16 @@ Here are the means by condition. There is no significant condition differences f
 | communal=good  |       5.91|       5.97|       6.34|
 | communal=bad   |       6.05|       6.30|       6.40|
 | agentic=good   |       5.68|       6.06|       6.28|
+
+D-scores on <span style="color:blue"> COMMUNAL IMPORTANCE FOR MEN </span> between two focal conditions in past studies:
+=======================================================================================================================
+
+-   Diekman essay manipulation (paper), SIG: d (important) = .17, d (satisfying) = .47 , d (full communal goals) = .27
+-   Diekman essay manipulation (lab replication): d (important) = .09, d (satisfying) = .03
+-   Simple postion of rating manipulation, SIG effect for men (communal first vs. agentic first): d = .37
+-   Name of the Game manipulation: d = .04
+-   Implicit Stereotype retraining, SIG: d = .54
+-   Implicit stereotype retraining follow-up (just started analyzing this and haven't excluded those who had tasks issues according to the log): d = .04
+-   CURRENT STUDY : d (important) = .53, d (satisfying) = .41, d (beneficial) = .53
+
+(NOTE: excluding only those who didn't write and who learned english very late)

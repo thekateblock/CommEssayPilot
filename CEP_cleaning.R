@@ -62,7 +62,7 @@ dataset$agen_Ben <- ((dataset$Ben_agen1 + dataset$Ben_agen2 + dataset$Ben_agen3 
 
 ## excluding thos who did not write essay and who did not stay on TOPIC
 dataset.attn <- filter(dataset, Essay_Length!= "blank" & Essay_Content == 'IN LINE')
-dataset.attn2 <- filter(dataset, Essay_Length!= "blank" & Atn_Check1 == 2)
+dataset.attn2 <- filter(dataset, Essay_Length!= "blank" & Atn_Check1 == 'PT (correct)')
 dataset.attn3 <- filter(dataset, Essay_Length!= "blank")
 dataset.attn4 <- filter (dataset, Essay_Length!= "blank" & English < 13)
 dataset.attn5 <- filter (dataset, Essay_Length!= "blank" & Whatabout_Coded != 4)

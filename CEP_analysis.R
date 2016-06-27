@@ -90,6 +90,11 @@ plotmeans(dataset.attn$Surprised~Condition_TXT,xlab="Condition",
 dataset.attn %>% group_by(Condition_TXT) %>%
   summarise_each(funs(mean(., na.rm = TRUE), sd(., na.rm=TRUE), n()), comm_imp,comm_Sat, comm_Ben)
 
+dataset.attn4 %>% group_by(Condition_TXT) %>%
+  summarise_each(funs(mean(., na.rm = TRUE), sd(., na.rm=TRUE), n()), comm_imp,comm_Sat, comm_Ben)
+
+
+
 ######## Do same test with the larger sample that also included those who wrote counter the condition
 ###########################################
 
